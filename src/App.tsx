@@ -1,25 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
+import Products from './pages/Products';
+import Inventory from './pages/Inventory';
+import axios from 'axios';
+
+axios.defaults.baseURL = 'http://184.73.145.4:8085';
+axios.defaults.headers['Content-Type'] = 'application/json';
+axios.defaults.headers.common['Cache-Control'] = 'no-cache';
+axios.defaults.headers.common['Accept'] = 'application/json';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className='mx-auto p-4 max-w-[800px]'>
+        <Routes>
+          <Route path='/inventory' Component={Inventory} />
+          <Route path='/products' Component={Products} />
+          <Route path='*' element={<Navigate to='/inventory' />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
